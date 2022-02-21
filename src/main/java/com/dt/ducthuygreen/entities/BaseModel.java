@@ -95,7 +95,19 @@ public abstract class BaseModel {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-    
-    
+
+	public BaseModel(Long id, Boolean deleted, Date createdDate, String createdBy, Date updatedDate, String updatedBy) {
+		super();
+		this.id = id;
+		this.deleted = deleted;
+		this.createdDate = createdDate;
+		this.createdBy = createdBy;
+		this.updatedDate = updatedDate;
+		this.updatedBy = updatedBy;
+	}
+
+	public BaseModel() {
+		super();
+	}
 
 }

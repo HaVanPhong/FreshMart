@@ -1,0 +1,49 @@
+package com.dt.ducthuygreen.entities;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "Product")
+public class Product extends BaseModel implements Serializable {
+
+    @Column(name = "product_name")
+    private String productName;
+
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "price")
+    private Long price;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "evaluate")
+    private Integer evaluate;
+
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @Column(name = "sold")
+    private Integer sold;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    Category category = new Category();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Item> items = new ArrayList<>();
+
+}

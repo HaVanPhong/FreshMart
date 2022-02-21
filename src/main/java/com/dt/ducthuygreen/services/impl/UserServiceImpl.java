@@ -20,8 +20,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Long countAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.count();
 	}
 
 	@Override
@@ -36,8 +35,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findByUsername(username);
 	}
 
 	@Override
@@ -47,21 +45,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User create(SignupDTO signUpDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User update(UserUpdateDTO userUpdateDTO, User currentUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User update(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User save(User user) {
+		return userRepository.save(user);
 	}
 
 	@Override
@@ -74,11 +59,6 @@ public class UserServiceImpl implements UserService {
 	public void createAdminAccount(User user) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public User save(User user) {
-		return userRepository.save(user);
 	}
 	
 }

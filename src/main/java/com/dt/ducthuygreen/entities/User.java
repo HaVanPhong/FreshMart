@@ -6,7 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -17,7 +21,7 @@ import java.util.Set;
 @Table(name = "account")
 public class User extends BaseModel implements Serializable {
     @Column(name = "user_name", unique = true)
-    private String userName;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -34,23 +38,24 @@ public class User extends BaseModel implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
+  //link to table Role
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private String roles;
+    @JsonIgnore
+    private Set<Role> roles = new HashSet<>();
 
     @Transient
     private String passwordConfirm;
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String userName) {
+		this.username = userName;
 	}
 
 	public String getPassword() {
@@ -93,11 +98,11 @@ public class User extends BaseModel implements Serializable {
 		this.status = status;
 	}
 
-	public String getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(String roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

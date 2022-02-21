@@ -20,10 +20,13 @@ import com.dt.ducthuygreen.exception.CustomEntryPoint;
 import com.dt.ducthuygreen.filters.JwtRequestFilter;
 import com.dt.ducthuygreen.services.MyUserDetailService;
 
-@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
+@Configuration
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MyUserDetailService myUserDetailService;
 	

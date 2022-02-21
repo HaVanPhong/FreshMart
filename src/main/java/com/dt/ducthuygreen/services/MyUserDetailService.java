@@ -16,22 +16,23 @@ import com.dt.ducthuygreen.exception.NotFoundException;
 import com.dt.ducthuygreen.repos.UserRepository;
 
 @Service
-public class MyUserDetailService implements UserDetailsService{
+public class MyUserDetailService implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
-	
-	 @Override
-	    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	        User user = userRepository.findByUsername(username);
-	        if (user == null) {
-	            throw new NotFoundException("Not found user");
-	        }
+    @Autowired
+    private UserRepository userRepository;
 
-	        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-	        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRoles()));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if(user == null) {
+            throw new UsernameNotFoundException("Not found user by username: " + username);
+        }
 
-	        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
-	                grantedAuthorities);
-	    }
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        user.getRoles().forEach(item -> {
+            grantedAuthorities.add(new SimpleGrantedAuthority(item.getRoleName()));
+        });
+
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+    }
 }

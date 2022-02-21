@@ -7,5 +7,5 @@ import com.dt.ducthuygreen.entities.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long>{
-
+	Category findByCategoryName(String categoryName);
 }

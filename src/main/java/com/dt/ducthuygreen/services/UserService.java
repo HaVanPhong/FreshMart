@@ -9,7 +9,6 @@ import com.dt.ducthuygreen.dto.UserDTO;
 import com.dt.ducthuygreen.dto.UserUpdateDTO;
 import com.dt.ducthuygreen.entities.User;
 
-@Service
 public interface UserService {
 	Long countAll();
 	
@@ -26,6 +25,8 @@ public interface UserService {
     User update(UserUpdateDTO userUpdateDTO, User currentUser);
 
     User update(User user);
+    
+    User save(User user);
 
     void deleteById(Long userId);
 

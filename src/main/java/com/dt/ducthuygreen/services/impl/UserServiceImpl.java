@@ -11,8 +11,9 @@ import com.dt.ducthuygreen.dto.UserUpdateDTO;
 import com.dt.ducthuygreen.entities.User;
 import com.dt.ducthuygreen.repos.UserRepository;
 import com.dt.ducthuygreen.services.UserService;
+
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -30,8 +31,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User findById(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findById(userId).get();
 	}
 
 	@Override

@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -21,9 +25,11 @@ public class Role extends BaseModel implements Serializable {
     @Column(name = "role_name", nullable = false)
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private Set<User> users;
-
+  //link to table Users
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "roles")
+    @JsonIgnore
+    private Set<User> users = new HashSet<>();
+    
     public Role(String roleName) {
         this.roleName = roleName;
     }

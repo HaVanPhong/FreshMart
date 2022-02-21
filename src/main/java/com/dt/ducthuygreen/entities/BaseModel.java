@@ -110,5 +110,4 @@ public abstract class BaseModel {
 		super();
 	}
 
-    
 }

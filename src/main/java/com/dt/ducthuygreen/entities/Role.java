@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,9 +22,15 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "Role")
+@Transactional
 public class Role extends BaseModel implements Serializable {
 
-    @Column(name = "role_name", nullable = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4124841846465023072L;
+
+	@Column(name = "role_name", nullable = false)
     private String roleName;
 
   //link to table Users
@@ -30,11 +38,20 @@ public class Role extends BaseModel implements Serializable {
     @JsonIgnore
     private Set<User> users = new HashSet<>();
     
+    public Role() {}
+    
     public Role(String roleName) {
         this.roleName = roleName;
     }
 
-    public String getRoleName() {
+    public Role(Long id, Boolean deleted, Date createdDate, String createdBy, Date updatedDate, String updatedBy,
+			String roleName, Set<User> users) {
+		super(id, deleted, createdDate, createdBy, updatedDate, updatedBy);
+		this.roleName = roleName;
+		this.users = users;
+	}
+
+	public String getRoleName() {
         return roleName;
     }
 

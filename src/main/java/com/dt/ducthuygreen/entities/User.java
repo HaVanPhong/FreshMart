@@ -20,7 +20,12 @@ import java.util.Set;
 @Entity
 @Table(name = "account")
 public class User extends BaseModel implements Serializable {
-    @Column(name = "user_name", unique = true)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4411866133516874486L;
+
+	@Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -39,8 +44,8 @@ public class User extends BaseModel implements Serializable {
     private Integer status;
 
   //link to table Role
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role", 
             joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )

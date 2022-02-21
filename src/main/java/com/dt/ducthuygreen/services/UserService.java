@@ -19,12 +19,6 @@ public interface UserService {
     User findByUsername(String username);
 
     User create(UserDTO userDTO);
-
-    User create(SignupDTO signUpDTO);
-
-    User update(UserUpdateDTO userUpdateDTO, User currentUser);
-
-    User update(User user);
     
     User save(User user);
 

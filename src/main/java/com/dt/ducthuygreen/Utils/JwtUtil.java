@@ -13,10 +13,10 @@ import java.util.Date;
 public class JwtUtil {
 
 	//  @Value("${jwt.secret_key}")
-	  private final String SECRET_KEY = "1231231";
+	  private final String SECRET_KEY = "Zq4t7wzCFJaNdRfUjXn2r5u8xADGKbPeShVkYp3s6v9yBEHMcQfT";
 	
-	  @Value("${jwt.time_expiration}")
-	  private Integer TIME_EXPIRATION;
+//	  @Value("${jwt.time_expiration}")
+	  private Integer TIME_EXPIRATION = 36000;
 	
 	  public String extractUsername(String token) {
 	      return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();

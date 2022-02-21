@@ -75,10 +75,11 @@ public class AuthServiceImp implements AuthService {
 	@Override
 	public AuthenticationResponse register(UserDTO userDTO) throws InvalidObjectException {
 		User oldUser = userService.findByUsername(userDTO.getUsername());
-        if(oldUser != null) {
+		if(oldUser != null) {
             throw new DuplicateException("Username has already exists");
         }
-        User user = ConvertObject.convertUserDTOToUser(new User(), userDTO);
+        User user = new User();
+        user = ConvertObject.convertUserDTOToUser(user, userDTO);
         if(user == null) {
             throw new InvalidObjectException("Invalid user");
         }
@@ -88,10 +89,8 @@ public class AuthServiceImp implements AuthService {
         user.setRoles(Set.of(role));
 
         User newUser = userService.save(user);
-
-        final UserDetails userDetails = myUserDetailsService.loadUserByUsername(newUser.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails);
-
+        UserDetails userDetails = myUserDetailsService.loadUserByUsername(newUser.getUsername());
+        String jwt = jwtUtil.generateToken(userDetails);
         return new AuthenticationResponse(jwt, newUser.getId(), newUser.getUsername(), List.of(role.getRoleName()));
 	}
     

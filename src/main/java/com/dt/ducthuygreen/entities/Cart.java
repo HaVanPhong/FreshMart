@@ -27,4 +27,22 @@ public class Cart extends BaseModel implements Serializable {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
+	public Long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+    
+    
+
 }

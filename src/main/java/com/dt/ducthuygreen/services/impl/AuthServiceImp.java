@@ -1,6 +1,7 @@
 package com.dt.ducthuygreen.services.impl;
 
 import java.io.InvalidObjectException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -55,8 +56,14 @@ public class AuthServiceImp implements AuthService {
         final String jwt = jwtUtil.generateToken(userDetails);
 
         User user = userService.findByUsername(request.getUsername());
+        
+        List<String> roles = new ArrayList<>();
+        Set<Role> roleSet = user.getRoles();
+        if(roleSet.size() > 0) {
+            roleSet.forEach(item -> roles.add(item.getRoleName()));
+        }
 
-        return new AuthenticationResponse(jwt, user.getId(), user.getUsername());
+        return new AuthenticationResponse(jwt, user.getId(), user.getUsername(), roles);
     }
 
     @Override
@@ -91,6 +98,7 @@ public class AuthServiceImp implements AuthService {
         User newUser = userService.save(user);
         UserDetails userDetails = myUserDetailsService.loadUserByUsername(newUser.getUsername());
         String jwt = jwtUtil.generateToken(userDetails);
+        
         return new AuthenticationResponse(jwt, newUser.getId(), newUser.getUsername(), List.of(role.getRoleName()));
 	}
     

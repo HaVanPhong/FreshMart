@@ -1,7 +1,11 @@
 package com.dt.ducthuygreen.Utils;
 
+import com.dt.ducthuygreen.dto.CartDTO;
+import com.dt.ducthuygreen.dto.ItemDTO;
 import com.dt.ducthuygreen.dto.ProductDTO;
 import com.dt.ducthuygreen.dto.UserDTO;
+import com.dt.ducthuygreen.entities.Cart;
+import com.dt.ducthuygreen.entities.Item;
 import com.dt.ducthuygreen.entities.Product;
 import com.dt.ducthuygreen.entities.User;
 
@@ -25,5 +29,16 @@ public class ConvertObject {
 		product.setSold(productDTO.getSold());
 		
 		return product;
+	}
+	
+	public static Cart convertCartDTOTOCart(CartDTO cartDTO) {
+		Cart cart = new Cart();
+		cart.setUser_id(cartDTO.getUserId());
+		cart.setItems(cartDTO.getItems());
+		return cart;
+	}
+	
+	public static Item convertItemDTOTOItem(ItemDTO itemDTO) {
+		return new Item(itemDTO.getSize(), itemDTO.getQuantity(), itemDTO.getPrice());
 	}
 }

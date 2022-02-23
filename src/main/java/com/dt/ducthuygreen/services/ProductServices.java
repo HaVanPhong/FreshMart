@@ -7,7 +7,7 @@ import com.dt.ducthuygreen.dto.ProductUpdateDTO;
 import com.dt.ducthuygreen.entities.Product;
 
 public interface ProductServices {
-    Product create(ProductDTO productDTO);
+    Product create(ProductDTO productDTO, Long categoryId);
     List<Product> getAllProduct();
 	Product getProductById(Long id);
 	Product save(Product product);

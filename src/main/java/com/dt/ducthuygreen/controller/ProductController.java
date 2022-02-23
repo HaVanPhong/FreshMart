@@ -29,9 +29,12 @@ public class ProductController {
 		return ResponseEntity.status(200).body(productServices.getProductById(id));
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> createNewProduct(@RequestBody ProductDTO productDTO) {
-		return ResponseEntity.status(201).body(productServices.create(productDTO));
+	@PostMapping("/{cateId}")
+	public ResponseEntity<?> createNewProduct(
+			@PathVariable("cateId") Long cateId,
+			@RequestBody ProductDTO productDTO
+			) {
+		return ResponseEntity.status(201).body(productServices.create(productDTO, cateId));
 	}
 	
 //	@PatchMapping("/{id}")

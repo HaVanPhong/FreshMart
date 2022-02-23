@@ -13,13 +13,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "Item")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Item extends BaseModel implements Serializable {
 
-    @Column(name = "size")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "size")
     private String size;
 
     @Column(name = "quantity")
@@ -28,17 +31,32 @@ public class Item extends BaseModel implements Serializable {
     @Column(name = "price")
     private Long price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     Product product = new Product();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     Order order = new Order();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     Cart cart = new Cart();
+
+    public Item() {}
+    
+	public Item(Long id, Boolean deleted, Date createdDate, String createdBy, Date updatedDate, String updatedBy,
+			String size, Integer quantity, Long price, Product product, Order order, Cart cart) {
+		super(id, deleted, createdDate, createdBy, updatedDate, updatedBy);
+		this.size = size;
+		this.quantity = quantity;
+		this.price = price;
+		this.product = product;
+		this.order = order;
+		this.cart = cart;
+	}
+
+
 
 	public Item(String size, Integer quantity, Long price) {
 		this.size = size;

@@ -12,6 +12,7 @@ import com.dt.ducthuygreen.entities.Cart;
 import com.dt.ducthuygreen.entities.Item;
 import com.dt.ducthuygreen.entities.Product;
 import com.dt.ducthuygreen.exception.NotFoundException;
+import com.dt.ducthuygreen.repos.CartRepository;
 import com.dt.ducthuygreen.repos.ItemRepository;
 import com.dt.ducthuygreen.services.ICartService;
 import com.dt.ducthuygreen.services.IItemService;
@@ -50,7 +51,15 @@ public class ItemServiceImpl implements IItemService {
 		Item item = ConvertObject.convertItemDTOTOItem(itemDTO);
 		item.setProduct(product);
 		item.setCart(cart);
-		return itemRepository.save(item);
+		
+		List<Item> items = cart.getItems();
+		items.add(item);
+		cart.setItems(items);
+		
+		Item newItem = itemRepository.save(item);
+		cartService.save(cart);
+		
+		return newItem;
 	}
 
 	@Override

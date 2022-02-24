@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "Cart")
-public class Cart extends BaseModel implements Serializable {
+public class Cart extends BaseModel {
 
     @Column(name = "user_id")
     private Long user_id;

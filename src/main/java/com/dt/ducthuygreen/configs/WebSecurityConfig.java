@@ -57,7 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/users/**").authenticated()
 //                .antMatchers("/api/users/**").permitAll()
                 .antMatchers("/api/carts/**").permitAll()
-                .antMatchers("/api/order-items/**").authenticated()
+                .antMatchers("/api/order-items/**").permitAll()
+//                .antMatchers("/api/order-items/**").authenticated()
                 .antMatchers("/api/sale-orders/**").authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        http.exceptionHandling().authenticationEntryPoint(new CustomEntryPoint());

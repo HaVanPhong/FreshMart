@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dt.ducthuygreen.dto.CartDTO;
+import com.dt.ducthuygreen.services.ICartService;
 import com.dt.ducthuygreen.services.impl.CartServiceImpl;
 
 @RestController
 @RequestMapping("/api/carts")
 public class CartController {
 	@Autowired
-	private CartServiceImpl cartService;
+	private ICartService cartService;
 	
 	@GetMapping("/{userId}")
 	public ResponseEntity<?> getAllCart(@PathVariable("userId") Long userId) {
@@ -32,6 +33,12 @@ public class CartController {
 	@DeleteMapping("/{cartId}")
 	public ResponseEntity<?> deleteCartById(@PathVariable("cartId") Long cartId) {
 		cartService.deleteCartById(cartId);
+		return ResponseEntity.status(200).build();
+	}
+	
+	@DeleteMapping("/{userId}/user")
+	public ResponseEntity<?> deleteCartByUserId(@PathVariable("userId") Long userId) {
+		cartService.deleteCartByUserId(userId);
 		return ResponseEntity.status(200).build();
 	}
 	

@@ -23,10 +23,18 @@ public class ConvertObject {
     }
 	
 	public static Product convertProductDTOToProduct(Product product, ProductDTO productDTO) {
+		product.setCreatedDate(productDTO.getCreatedDate());
+		product.setCreatedBy(productDTO.getCreatedBy());
+		product.setDeleted(productDTO.getDeleted());
+		product.setUpdatedBy(productDTO.getUpdatedBy());
+		product.setUpdatedDate(productDTO.getUpdatedDate());
+		
+		
 		product.setProductName(productDTO.getProductName());
 		product.setImage(productDTO.getImage());
-		product.setDescription(product.getDescription());
-		product.setEvaluate(product.getEvaluate());
+		product.setPrice(productDTO.getPrice());
+		product.setDescription(productDTO.getDescription());
+		product.setEvaluate(productDTO.getEvaluate());
 		product.setQuantity(productDTO.getQuantity());
 		product.setSold(productDTO.getSold());
 		

@@ -10,4 +10,6 @@ public interface ICartService {
 	Cart createNewCart(CartDTO cartDTO, Long userId);
 	List<Cart> getAllCartByUserId(Long userId);
 	void deleteCartById(Long id);
+	void deleteCartByUserId(Long userId);
+	Cart save(Cart cart);
 }

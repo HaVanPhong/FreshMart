@@ -1,7 +1,7 @@
 package com.dt.ducthuygreen.services.impl;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,25 @@ public class CartServiceImpl implements ICartService {
 			throw new NotFoundException("Can not find cartId: " + id);
 		}
 		
-		cartRepository.delete(cart);
+		cartRepository.deleteById(cart.getId());
+	}
+
+	@Override
+	public void deleteCartByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		List<Cart> carts = cartRepository.findAll();
+		carts = carts.stream().filter(item -> item.getUser_id() == userId).collect(Collectors.toList());
+		
+		if(carts.size() != 0) {
+			for(Cart cart : carts) {
+				deleteCartById(cart.getId());
+			}
+		}
+	}
+
+	@Override
+	public Cart save(Cart cart) {
+		return cartRepository.save(cart);
 	}
 
 }

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dt.ducthuygreen.dto.ProductDTO;
 import com.dt.ducthuygreen.services.ProductServices;
@@ -32,9 +34,18 @@ public class ProductController {
 	@PostMapping("/{cateId}")
 	public ResponseEntity<?> createNewProduct(
 			@PathVariable("cateId") Long cateId,
-			@RequestBody ProductDTO productDTO
+			@RequestBody ProductDTO productDTO, 
+			@RequestParam(name = "image", required = false) MultipartFile image
 			) {
-		return ResponseEntity.status(201).body(productServices.create(productDTO, cateId));
+		return ResponseEntity.status(201).body(productServices.create(productDTO, cateId, image));
+	}
+	
+	@PostMapping("/{productId}/image")
+	public ResponseEntity<?> changeImage(
+			@PathVariable("productId") Long productId,
+			@RequestParam(name = "image", required = false) MultipartFile image
+			) {
+		return ResponseEntity.status(201).body(productServices.changeIamge(productId, image));
 	}
 	
 //	@PatchMapping("/{id}")

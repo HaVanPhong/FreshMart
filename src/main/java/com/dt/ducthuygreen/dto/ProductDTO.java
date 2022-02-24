@@ -1,5 +1,7 @@
 package com.dt.ducthuygreen.dto;
 
+import com.dt.ducthuygreen.entities.BaseModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductDTO {
+public class ProductDTO extends BaseModel {
 	private String productName;
 	
     private String image;

@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dt.ducthuygreen.Utils.Constants;
 import com.dt.ducthuygreen.Utils.ConvertObject;
 import com.dt.ducthuygreen.Utils.UploadFile;
 import com.dt.ducthuygreen.dto.ProductDTO;
@@ -34,7 +36,10 @@ public class ProductServicesImpl implements ProductServices {
 	}
 
 	@Override
-	public List<Product> getAllProduct() {
+	public List<Product> getAllProduct(Integer page) {
+		if(page != null) {
+			return productRepository.findAll(PageRequest.of(page.intValue(), Constants.PAGE_SIZE)).getContent();
+		}
 		return productRepository.findAll();
 	}
 	

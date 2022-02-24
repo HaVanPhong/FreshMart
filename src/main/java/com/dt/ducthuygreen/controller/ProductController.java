@@ -22,8 +22,8 @@ public class ProductController {
 	@Autowired private ProductServices productServices;
 	
 	@GetMapping
-	public ResponseEntity<?> getAllProduct() {
-		return ResponseEntity.status(200).body(productServices.getAllProduct());
+	public ResponseEntity<?> getAllProduct(@RequestParam(name = "page", required = false) Integer page) {
+		return ResponseEntity.status(200).body(productServices.getAllProduct(page));
 	}
 	
 	@GetMapping("/{id}")

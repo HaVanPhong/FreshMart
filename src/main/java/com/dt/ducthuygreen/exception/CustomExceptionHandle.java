@@ -18,6 +18,12 @@ import java.util.List;
 
 @RestControllerAdvice
 public class CustomExceptionHandle {
+	@ExceptionHandler(UploadImageException.class)
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    public ErrorResponse handleUploadImageException(DuplicateException ex, WebRequest req) {
+        return new ErrorResponse(HttpStatus.BAD_GATEWAY.value(), ex.getMessage());
+    }
+	
 	@ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidException(BindException ex, WebRequest req) {

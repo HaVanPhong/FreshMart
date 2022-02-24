@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dt.ducthuygreen.Utils.ConvertObject;
+import com.dt.ducthuygreen.Utils.UploadFile;
 import com.dt.ducthuygreen.dto.ProductDTO;
 import com.dt.ducthuygreen.entities.Category;
 import com.dt.ducthuygreen.entities.Product;
@@ -20,6 +22,7 @@ public class ProductServicesImpl implements ProductServices {
 
 	@Autowired private ProductRepository productRepository;
 	@Autowired private CategoryService categoryService;
+	private UploadFile uploadFile = new UploadFile();
 	
 	@Override
 	public Product getProductById(Long productId) {
@@ -36,7 +39,7 @@ public class ProductServicesImpl implements ProductServices {
 	}
 	
 	@Override
-	public Product create(ProductDTO productDTO, Long categoryId) {
+	public Product create(ProductDTO productDTO, Long categoryId, MultipartFile file) {
 		Product product = new Product();
 		
 		Category category = categoryService.findById(categoryId);
@@ -46,6 +49,9 @@ public class ProductServicesImpl implements ProductServices {
 		}
 		
 		product.setCategory(category);
+		if(file != null) {
+			product.setImage(uploadFile.getUrlFromFile(file));
+		}
 		
 		return productRepository.save(ConvertObject.convertProductDTOToProduct(product, productDTO));
 	}
@@ -67,5 +73,23 @@ public class ProductServicesImpl implements ProductServices {
 		Product product = getProductById(id);
 		
 		productRepository.delete(product);
+	}
+
+	@Override
+	public Product changeIamge(Long id, MultipartFile file) {
+		if(file == null) {
+			return null;
+		}
+		
+		Product product = getProductById(id);
+		if(product == null) {
+			throw new NotFoundException("Can not find this product");
+		}
+		
+		uploadFile.removeImageFromUrl(product.getImage());
+		
+		product.setImage(uploadFile.getUrlFromFile(file));
+		
+		return productRepository.save(product);
 	}
 }

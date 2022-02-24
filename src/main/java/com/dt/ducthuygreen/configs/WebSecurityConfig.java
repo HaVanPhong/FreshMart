@@ -48,25 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(request -> corsConfiguration())
                 .and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/categories/**").permitAll()
-                .antMatchers("/api/products/**").permitAll()
-                .antMatchers("/api/product-images/**").permitAll()
-                .antMatchers("/api/product-rates/**").permitAll()
-                .antMatchers("/api/deliveries/**").permitAll()
-                .antMatchers("/api/users/**").authenticated()
-//                .antMatchers("/api/users/**").permitAll()
-                .antMatchers("/api/carts/**").permitAll()
-                .antMatchers("/api/order-items/**").permitAll()
-//                .antMatchers("/api/order-items/**").authenticated()
-                .antMatchers("/api/sale-orders/**").authenticated()
+                .anyRequest().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.exceptionHandling().authenticationEntryPoint(new CustomEntryPoint());
-//    	http.cors().configurationSource(request -> corsConfiguration())
-//        .and().csrf().disable()
-//        .authorizeRequests()
-//        .antMatchers("/api/users/**").authenticated()
-//        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

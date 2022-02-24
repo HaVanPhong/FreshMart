@@ -8,7 +8,7 @@ import com.dt.ducthuygreen.entities.Item;
 public interface IItemService {
 	Item getItemById(Long id);
 	List<Item> getAllItem();
-	Item creatNewItem(ItemDTO itemDTO, Long productId, Long cartId);
+	Item creatNewItem(ItemDTO itemDTO, Long productId, Long cartId, Long userId);
 	
 	void deleteItemById(Long id);
 }

@@ -28,9 +28,15 @@ public class ItemController {
 		return ResponseEntity.status(200).body(itemService.getItemById(id));
 	}
 	
-	@PostMapping("/{productId}/{cartId}")
-	public ResponseEntity<?> createNewItem(@PathVariable("productId") Long productId, @PathVariable("cartId") Long cartId, @RequestBody ItemDTO itemDTO) {
-		return ResponseEntity.status(201).body(itemService.creatNewItem(itemDTO, productId, cartId));
+	@PostMapping("/{productId}/{cartId}/{userId}")
+	public ResponseEntity<?> createNewItem(
+			@PathVariable("productId") Long productId, 
+			@PathVariable("cartId") Long cartId, 
+			@PathVariable("userId") Long userId, 
+			@RequestBody ItemDTO itemDTO) {
+		return ResponseEntity.status(201).body(
+				itemService.creatNewItem(itemDTO, productId, cartId, userId)
+				);
 	}
 	
 	@DeleteMapping("/{cartId}")

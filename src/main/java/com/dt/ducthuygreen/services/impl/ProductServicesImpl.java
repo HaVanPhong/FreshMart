@@ -86,7 +86,9 @@ public class ProductServicesImpl implements ProductServices {
 			throw new NotFoundException("Can not find this product");
 		}
 		
-		uploadFile.removeImageFromUrl(product.getImage());
+		if(product.getImage() != null) {
+			uploadFile.removeImageFromUrl(product.getImage());
+		}
 		
 		product.setImage(uploadFile.getUrlFromFile(file));
 		
